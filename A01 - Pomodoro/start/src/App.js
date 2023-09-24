@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import './App.css';
 
 function addPad(timer) {
@@ -20,6 +20,11 @@ export default function App() {
     }, 1000);
   }
 
+  function stopTimer() {
+    if(intervalRef.current === null) return;
+    setTitle(`Keep it up!`);
+    clearInterval(intervalRef.current);
+  }
   const minutes = addPad(Math.floor(timer / 60));
   const seconds = addPad(timer - minutes * 60);
 
@@ -37,6 +42,7 @@ export default function App() {
         <button onClick={startTimer}>Start</button>
         <button>Stop</button>
         <button>Reset</button>
+        <button onClick={stopTimer}>Stop</button>
       </div>
     </div>
   );
