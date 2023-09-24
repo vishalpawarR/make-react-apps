@@ -28,11 +28,14 @@ export default function App() {
     if(intervalRef.current === null) return;
     setTitle(`Keep it up!`);
     clearInterval(intervalRef.current);
+    intervalRef.current = null; //To make restart the timer when the timer stops
   }
+
   function resetTimer() {
     clearInterval(intervalRef.current);
     setTitle(`Ready to go another round?`);
     setTimer(timerTime * 60);
+    intervalRef.current = null; //To make restart the timer when the timer stops
   }
 
   const minutes = addPad(Math.floor(timer / 60));
