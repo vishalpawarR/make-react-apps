@@ -9,16 +9,16 @@ function addPad(timer) {
 
 export default function App() {
   const [title, setTitle] = useState("Let the countdown begin!!!")
-  const [timer, setTimer] = useState(5);
-
   const [timer, setTimer] = useState(timerTime * 60);
   const intervalRef = useRef(null);
 
   function startTimer() {
-    setInterval(() => {
+    if(intervalRef.current !== null) return;
+    setTitle(`You're doing great!`)
+    intervalRef.current = setInterval(() => {
       setTimer(timer => {
         if(timer>=1) return timer - 1;
-
+        resetTimer();
         return 0;
       });
     }, 1000);
@@ -53,8 +53,6 @@ export default function App() {
 
       <div className="buttons">
         <button onClick={startTimer}>Start</button>
-        <button>Stop</button>
-        <button>Reset</button>
         <button onClick={stopTimer}>Stop</button>
         <button onClick={resetTimer}>Reset</button>
       </div>
